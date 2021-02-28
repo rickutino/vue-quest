@@ -7,6 +7,7 @@
     >
       <v-toolbar-title>Youtube Curation</v-toolbar-title>
     </v-toolbar>
+    <Top />
     <v-toolbar
       dark
       src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
@@ -18,12 +19,14 @@
 </template>
 
 <script>
+  import Top from './components/Top.vue'
 
-export default {
-  name: 'App',
-  components: {
+  export default {
+    name: 'App',
+    components: {
+      Top
+    }
   }
-}
 </script>
 
 <style>
