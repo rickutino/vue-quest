@@ -149,3 +149,15 @@
     }),
   }
 </script>
+
+
+
+<script>
+  import InputForm from './InputForm';
+  export default {
+    name: 'Top',
+    components: {
+      InputForm,
+    },
+  }
+</script>

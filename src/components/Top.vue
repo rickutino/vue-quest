@@ -1,35 +1,54 @@
 <template>
   <v-container>
-    <v-card
-      class="my-10"
-      elevation="10"
-      rounded="xl"
-      width="100%"
-    >
-      <v-container
-        class="mx-10 text-center"
-      >
-        <v-form>
-          <v-text-field
-            label="YouTube動画ID"
-            v-model="movieUrl"
-            placeholder="動画URLの[v= ]の後に続く英数字"
-            style="width: 300px"
-          />
-            {{ movieUrl}}
-        </v-form>
-      </v-container>
-    </v-card>
+    <InputForm 
+      formRounded="xl"
+      :formElevation="formElevation"
+      @storeMovie="storeMovie"
+    />
+    <Movies
+      ref="movies"
+      :movie-ittems="movieItems"
+    />
   </v-container>
 </template>
 
 <script>
-export default {
-  name: 'Top',
-  data() {
-    return {
-      movieUrl: ""
-    }
+  import InputForm from './InputForm';
+  import Movies from './Movies';
+  import axios from 'axios';
+
+  export default {
+    name: 'Top',
+    components: {
+      InputForm,
+      Movies,
+    },
+
+    data() {
+      return {
+        formElevation: "10",
+        movieItems: [{}],
+      }
+    },
+
+    created() {
+      this.getMovies()
+    },
+
+    methods: {
+      getMovies() {
+        axios.get('https://youtube-curation.herokuapp.com/rest/1'
+        ).then((response) => {
+          this.movieItems = response.data.user.movies
+        }).cattch((error) => {
+          console.log(error)
+        }).finally(() => {
+          this.$refs.movies.init()
+        })
+      },
+      storemovie(movieUrl, comment) {
+        console.log(movieUrl, comment)
+      },
+    },
   }
-}
 </script>
